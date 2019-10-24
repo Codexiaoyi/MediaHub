@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MediaHub.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,12 +18,14 @@ namespace MediaHub
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IHostingEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -45,9 +48,12 @@ namespace MediaHub
                 c.IncludeXmlComments(xmlPath, true);//默认的第二个参数是false，这个是controller的注释，记得修改
                 var xmlModelPath = Path.Combine(basePath, "MediaHubModel.xml");//这个就是刚刚配置的xml文件名
                 c.IncludeXmlComments(xmlModelPath);//默认的第二个参数是false，这个是controller的注释，记得修改
+
+
             });
-            
+
             #endregion
+            services.AddSingleton(new Appsettings(Env.ContentRootPath));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

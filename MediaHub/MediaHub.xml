@@ -4,5 +4,34 @@
         <name>MediaHub</name>
     </assembly>
     <members>
+        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.GetToken(MediaHub.AuthorizeHelper.Jwt.TokenModel)">
+            <summary>
+            获取Token
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.SerializeToken(System.String)">
+            <summary>
+            解析
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MediaHub.AuthorizeHelper.Jwt.TokenModel">
+            <summary>
+            令牌格式
+            </summary>
+        </member>
+        <member name="P:MediaHub.AuthorizeHelper.Jwt.TokenModel.Uid">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:MediaHub.AuthorizeHelper.Jwt.TokenModel.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
     </members>
 </doc>

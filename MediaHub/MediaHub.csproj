@@ -19,6 +19,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediaHub.Common\MediaHub.Common.csproj" />
+    <ProjectReference Include="..\MediaHub.Data\MediaHub.Data.csproj" />
+    <ProjectReference Include="..\MediaHub.IRespository\MediaHub.IRespository.csproj" />
+    <ProjectReference Include="..\MediaHub.Model\MediaHub.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

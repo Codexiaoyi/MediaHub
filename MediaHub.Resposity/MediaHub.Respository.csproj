@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediaHub.Data\MediaHub.Data.csproj" />
+    <ProjectReference Include="..\MediaHub.IRespository\MediaHub.IRespository.csproj" />
+  </ItemGroup>
+
+</Project>

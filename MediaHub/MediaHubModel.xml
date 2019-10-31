@@ -4,5 +4,10 @@
         <name>MediaHub.Model</name>
     </assembly>
     <members>
+        <member name="T:MediaHub.Model.BaseEntity">
+            <summary>
+            作为所有实体的基类
+            </summary>
+        </member>
     </members>
 </doc>

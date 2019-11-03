@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
@@ -20,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MediaHub.Common\MediaHub.Common.csproj" />
     <ProjectReference Include="..\MediaHub.Data\MediaHub.Data.csproj" />
-    <ProjectReference Include="..\MediaHub.IRespository\MediaHub.IRespository.csproj" />
+    <ProjectReference Include="..\MediaHub.IRespository\MediaHub.IRepository.csproj" />
     <ProjectReference Include="..\MediaHub.Model\MediaHub.Model.csproj" />
   </ItemGroup>
 

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using MediaHub.Common;
 using MediaHub.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,9 +36,9 @@ namespace MediaHub
         public IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
+            var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #region Swagger
@@ -49,7 +52,7 @@ namespace MediaHub
                     TermsOfService = "None",
                 });
 
-                var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
+                //这里配置可以将注释显示再swagger中
                 var xmlPath = Path.Combine(basePath, "MediaHub.xml");//这个就是刚刚配置的xml文件名
                 c.IncludeXmlComments(xmlPath, true);//默认的第二个参数是false，这个是controller的注释，记得修改
                 var xmlModelPath = Path.Combine(basePath, "MediaHubModel.xml");//这个就是刚刚配置的xml文件名
@@ -114,12 +117,35 @@ namespace MediaHub
                  };
              });
             #endregion
+
             services.AddSingleton(new Appsettings(Env.ContentRootPath));
             services.AddDbContext<MyContext>(options =>
             {
                 var sqlServerString = Appsettings.GetJsonString(new string[] { "ConnectionStrings", "SqlServer" });
                 options.UseSqlServer(sqlServerString, b => b.MigrationsAssembly("MediaHub.Data"));
             });
+
+            #region Autofac
+            //让Autofac接管ConfigureServices
+            //实例化 Autofac 容器
+            var builder = new ContainerBuilder();
+
+            //注册要反射的组件
+            //builder.RegisterType<BaseRepository>().As<IBaseRepository>();
+
+            //反射集注入
+            var repositoryDllFile = Path.Combine(basePath, "MediaHub.Repository.dll");
+            var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
+            builder.RegisterAssemblyTypes(assemblysRepository).AsImplementedInterfaces();
+
+            //将services填充到Autofac容器生成器中
+            builder.Populate(services);
+
+            //使用已进行的组件登记创建新容器
+            var ApplicationContainer = builder.Build();
+            #endregion
+
+            return new AutofacServiceProvider(ApplicationContainer);//Autofac接管 core的内置DI容器
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

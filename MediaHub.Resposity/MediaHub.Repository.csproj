@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>MediaHub.Repository</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>H:\MediaHub\MediaHub\MediaHub\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediaHub.Data\MediaHub.Data.csproj" />
+    <ProjectReference Include="..\MediaHub.IRespository\MediaHub.IRepository.csproj" />
+  </ItemGroup>
+
+</Project>

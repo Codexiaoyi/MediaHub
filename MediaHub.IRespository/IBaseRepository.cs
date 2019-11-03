@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MediaHub.IRespository
+namespace MediaHub.IRepository
 {
     /// <summary>
     /// 泛型仓储基类
@@ -12,21 +12,16 @@ namespace MediaHub.IRespository
     /// <typeparam name="TEntity"></typeparam>
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        #region Query查询操作
-        Task<List<TEntity>> Query();
-        Task<TEntity> QueryById(object id);
-        Task<List<TEntity>> QueryByIds(object[] ids);
-        #endregion
         #region Add添加操作
-        Task<bool> Add(TEntity model);
+        Task<int> AddAsync(TEntity model);
         #endregion
         #region Update更新操作
-        Task<bool> Update(TEntity model);
+        Task<int> UpdateAsync(TEntity model);
         #endregion
         #region Delete删除操作
-        Task<bool> Delete(TEntity model);
-        Task<bool> DeleteById(object id);
-        Task<bool> DeleteByIds(object[] ids);
+        Task<int> DeleteAsync(TEntity model);
+        //Task<bool> DeleteById(object id);
+        //Task<bool> DeleteByIds(object[] ids);
         #endregion
     }
 }

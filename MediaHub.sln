@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.Model", "MediaHub.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.Common", "MediaHub.Common\MediaHub.Common.csproj", "{4F842DD5-E5E9-4692-A6CD-A8D6BF60E8C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.IRespository", "MediaHub.IRespository\MediaHub.IRespository.csproj", "{6839AB2E-9351-495A-BEF7-24F08BE933DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.IRepository", "MediaHub.IRespository\MediaHub.IRepository.csproj", "{6839AB2E-9351-495A-BEF7-24F08BE933DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.Data", "MediaHub.Data\MediaHub.Data.csproj", "{7A62843E-6C1D-48AD-8FB5-A3BF030E5AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaHub.Respository", "MediaHub.Resposity\MediaHub.Respository.csproj", "{DB99CF0C-0B9B-4A07-92D3-88E107249912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaHub.Repository", "MediaHub.Resposity\MediaHub.Repository.csproj", "{DB99CF0C-0B9B-4A07-92D3-88E107249912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,33 +1,49 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediaHub.IRepository;
+using MediaHub.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaHub.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        private readonly ITestRepository _testRepository;
+
+        public ValuesController(ITestRepository testRepository)
+        {
+            _testRepository = testRepository;
+        }
+
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IEnumerable<TestModel>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _testRepository.Query();
+            return result;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        [Authorize]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult> Get(Guid id)
         {
-            return "value";
+            var result = await _testRepository.QueryById(id);
+            return Ok(result);
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
         // PUT api/values/5

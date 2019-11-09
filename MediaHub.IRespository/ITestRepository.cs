@@ -8,6 +8,7 @@ namespace MediaHub.IRepository
 {
     public interface ITestRepository : IBaseRepository<TestModel>
     {
-
+        Task<List<TestModel>> Query();
+        Task<TestModel> QueryById(Guid id);
     }
 }

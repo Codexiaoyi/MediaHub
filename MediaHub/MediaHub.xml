@@ -33,5 +33,11 @@
             角色
             </summary>
         </member>
+        <member name="M:MediaHub.Controllers.ValuesController.Get">
+            <summary>
+            获取所有数据
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

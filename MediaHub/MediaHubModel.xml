@@ -9,5 +9,25 @@
             作为所有实体的基类
             </summary>
         </member>
+        <member name="P:MediaHub.Model.FileModel.FileName">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileModel.ExtensionName">
+            <summary>
+            文件扩展名
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileModel.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileModel.FileSize">
+            <summary>
+            文件大小
+            </summary>
+        </member>
     </members>
 </doc>

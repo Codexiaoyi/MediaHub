@@ -37,5 +37,6 @@ namespace MediaHub.Data
         }
 
         public DbSet<TestModel> TestModels { get; set; }
+        public DbSet<FileModel> FileModels { get; set; }
     }
 }

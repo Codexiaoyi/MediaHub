@@ -28,6 +28,8 @@ namespace MediaHub
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSingleton(new Appsettings(Env.ContentRootPath));
+
+            services.AddCorsService();
             services.AddSwaggerService();
             services.AddDbContextService();
             services.AddAuthorizationService();
@@ -77,6 +79,8 @@ namespace MediaHub
                 c.RoutePrefix = "";
             });
             #endregion
+
+            app.UseCors("LimitRequests");
 
             app.UseAuthentication();
             app.UseMvc();

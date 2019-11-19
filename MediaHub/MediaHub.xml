@@ -33,6 +33,24 @@
             角色
             </summary>
         </member>
+        <member name="M:MediaHub.Controllers.FileController.Get">
+            <summary>
+            获取所有文件信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.Controllers.FileController.Delete">
+            <summary>
+            根据ID删除文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.Controllers.FileController.Post">
+            <summary>
+            上传文件
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MediaHub.Controllers.ValuesController.Get">
             <summary>
             获取所有数据

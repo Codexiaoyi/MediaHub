@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MediaHub.Common.Helper;
 using MediaHub.IRepository;
 using MediaHub.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +25,40 @@ namespace MediaHub.Controllers
         }
 
         /// <summary>
+        /// 获取所有文件信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("files")]
+        public async Task<ActionResult> Get()
+        {
+            var result = await _fileRepository.QueryAllFileAsync();
+            return Ok(new { result, success = true });
+        }
+
+        /// <summary>
+        /// 根据ID删除文件
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("delete")]
+        public async Task<ActionResult> Delete()
+        {
+            Guid guid = new Guid(Request.QueryString.Value.Remove(0,3));
+            var file = await _fileRepository.QueryByIdAsync(guid);
+            var filePath = file.FilePath;
+            await FileHelper.DeleteFileAsync(filePath);//删除相应文件
+            //删除数据库中文件实体
+            var result = await _fileRepository.DeleteAsync(file);
+            if (result > 0)
+            {
+                return Ok(new { success = true });
+            }
+            else
+            {
+                return Ok(new { success = false });
+            }
+        }
+
+        /// <summary>
         /// 上传文件
         /// </summary>
         /// <returns></returns>
@@ -36,7 +71,7 @@ namespace MediaHub.Controllers
                 if (file.Length > 0)
                 {
                     string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath,"UpLoad", file.FileName);
+                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
                     var saveFile = new FileModel
                     {
                         FileName = file.FileName,
@@ -44,14 +79,11 @@ namespace MediaHub.Controllers
                         ExtensionName = fileExtension,
                         FileSize = file.Length
                     };
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
+                    await FileHelper.CreateFileAsync(file, filePath);
                     await _fileRepository.AddAsync(saveFile);
                 }
             }
-            return Ok(new { count = files.Count, size = files.Sum(f => f.Length) });
+            return Ok(new { count = files.Count, size = files.Sum(f => f.Length), success = true });
         }
     }
 }

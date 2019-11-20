@@ -9,6 +9,7 @@ using MediaHub.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.DotNet.PlatformAbstractions;
 
 namespace MediaHub.Controllers
@@ -35,6 +36,19 @@ namespace MediaHub.Controllers
             return Ok(new { result, success = true });
         }
 
+        [HttpGet("download")]
+        public async Task<FileResult> Download(string id)
+        {
+            //Guid guid = new Guid(Request.QueryString.Value.Remove(0, 3));
+            Guid guid = new Guid(id);
+            var file = await _fileRepository.QueryByIdAsync(guid);
+            var filePath = file.FilePath;
+            var stream = System.IO.File.OpenRead(filePath);
+            var provider = new FileExtensionContentTypeProvider();
+            var contentType = provider.Mappings[file.ExtensionName];
+            return File(stream, contentType, file.FileName);
+        }
+
         /// <summary>
         /// 根据ID删除文件
         /// </summary>
@@ -42,7 +56,7 @@ namespace MediaHub.Controllers
         [HttpDelete("delete")]
         public async Task<ActionResult> Delete()
         {
-            Guid guid = new Guid(Request.QueryString.Value.Remove(0,3));
+            Guid guid = new Guid(Request.QueryString.Value.Remove(0, 3));
             var file = await _fileRepository.QueryByIdAsync(guid);
             var filePath = file.FilePath;
             await FileHelper.DeleteFileAsync(filePath);//删除相应文件
@@ -71,7 +85,7 @@ namespace MediaHub.Controllers
                 if (file.Length > 0)
                 {
                     string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
+                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, DateTime.Now.Ticks.ToString(), file.FileName);
                     var saveFile = new FileModel
                     {
                         FileName = file.FileName,

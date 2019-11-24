@@ -14,6 +14,9 @@ namespace MediaHub
     {
         public static void Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("host.json")
+                .Build();
             CreateWebHostBuilder(args).Build().Run();
         }
 

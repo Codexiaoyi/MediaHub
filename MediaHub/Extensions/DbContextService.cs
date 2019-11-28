@@ -18,8 +18,8 @@ namespace MediaHub.Extensions
 
             services.AddDbContext<MyContext>(options =>
             {
-                var sqlServerString = Appsettings.GetJsonString(new string[] { "ConnectionStrings", "SqlServer" });
-                options.UseSqlServer(sqlServerString, b => b.MigrationsAssembly("MediaHub.Data"));
+                var sqlServerString = Appsettings.GetJsonString(new string[] { "ConnectionStrings", "MySqlConnection" });
+                options.UseMySQL(sqlServerString, b => b.MigrationsAssembly("MediaHub.Data"));
             });
         }
     }

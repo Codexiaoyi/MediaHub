@@ -15,13 +15,11 @@ namespace MediaHub.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ITestRepository _testRepository;
         private readonly IHostingEnvironment _environment;
         
 
-        public ValuesController(ITestRepository testRepository, IHostingEnvironment environment)
+        public ValuesController(IHostingEnvironment environment)
         {
-            _testRepository = testRepository;
             _environment = environment;
             
         }
@@ -32,18 +30,16 @@ namespace MediaHub.Controllers
         /// <returns></returns>
         [HttpGet]
         //[Authorize]
-        public async Task<IEnumerable<TestModel>> Get()
+        public async Task<ActionResult> Get()
         {
-            var result = await _testRepository.Query();
-            return result;
+            return Ok(new { a = 1 });
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(Guid id)
         {
-            var result = await _testRepository.QueryById(id);
-            return Ok(result);
+            return Ok(new { a = 1 });
         }
 
         [HttpPost]

@@ -10,12 +10,12 @@ namespace MediaHub.Model
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime CreateDate { get; set; }
+        public string CreateDate { get; set; }
 
         public BaseEntity()
         {
             Id = Guid.NewGuid();
-            CreateDate = DateTime.Now;
+            CreateDate = DateTime.Now.ToShortTimeString();
         }
     }
 }

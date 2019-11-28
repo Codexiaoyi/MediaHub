@@ -7,6 +7,7 @@ using MediaHub.Common.Helper;
 using MediaHub.IRepository;
 using MediaHub.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -16,6 +17,7 @@ namespace MediaHub.Controllers
 {
     [Route("api/file")]
     [ApiController]
+    [EnableCors("AllowAny")]
     public class FileController : ControllerBase
     {
         private readonly IFileRepository _fileRepository;

@@ -22,7 +22,8 @@ namespace MediaHub.Extensions
                     policy
                     .WithOrigins(Appsettings.GetJsonString(new string[] { "Cors", "IPs" }).Split(','))
                     .AllowAnyHeader()//Ensures that the policy allows any header.
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
                 });
             });
         }

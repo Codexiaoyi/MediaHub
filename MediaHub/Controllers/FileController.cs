@@ -86,7 +86,7 @@ namespace MediaHub.Controllers
                 if (file.Length > 0)
                 {
                     string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, DateTime.Now.Ticks.ToString(), file.FileName);
+                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
                     var saveFile = new FileModel
                     {
                         FileName = file.FileName,

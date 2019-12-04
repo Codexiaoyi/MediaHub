@@ -15,7 +15,7 @@ namespace MediaHub.Model
         public BaseEntity()
         {
             Id = Guid.NewGuid();
-            CreateDate = DateTime.Now.ToShortTimeString();
+            CreateDate = DateTime.Now.ToString("yyyyMMddHHmmss");//精确到秒
         }
     }
 }

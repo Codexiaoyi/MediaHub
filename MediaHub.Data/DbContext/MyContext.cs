@@ -20,5 +20,6 @@ namespace MediaHub.Data
         }
 
         public DbSet<FileModel> FileModels { get; set; }
+        public DbSet<MediaHubUser> MediaHubUsers { get; set; }
     }
 }

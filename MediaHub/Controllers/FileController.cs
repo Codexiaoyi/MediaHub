@@ -17,6 +17,7 @@ namespace MediaHub.Controllers
 {
     [Route("api/file")]
     [ApiController]
+    [Authorize]
     public class FileController : ControllerBase
     {
         private readonly IFileRepository _fileRepository;
@@ -89,7 +90,7 @@ namespace MediaHub.Controllers
                     string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
                     var saveFile = new FileModel
                     {
-                        FileName = file.FileName,
+                        FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName,
                         FilePath = filePath,
                         ExtensionName = fileExtension,
                         FileSize = file.Length

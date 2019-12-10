@@ -1,4 +1,5 @@
 ﻿using MediaHub.Common;
+using MediaHub.Model;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -16,17 +17,17 @@ namespace MediaHub.AuthorizeHelper.Jwt
         /// <summary>
         /// 获取Token
         /// </summary>
-        /// <param name="tokenModel"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetToken(TokenModel tokenModel)
+        public static string GetToken(MediaHubUser user)
         {
             string issuer = Appsettings.GetJsonString(new string[] { "Audience", "Issuer" });//获取发布人
             string audience = Appsettings.GetJsonString(new string[] { "Audience", "Audience" });//获取作者
             string privateKey = Appsettings.GetJsonString(new string[] { "Audience", "PrivateKey" });//获取私钥
 
             //创建声明
-            var claims = new List<Claim> { 
-                new Claim(JwtRegisteredClaimNames.Jti, tokenModel.Uid.ToString()),
+            var claims = new List<Claim> {
+                new Claim(JwtRegisteredClaimNames.Jti, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Iat, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"),
                 new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                 //这个就是过期时间，目前是过期1000秒，可自定义，注意JWT有自己的缓冲过期时间
@@ -36,7 +37,7 @@ namespace MediaHub.AuthorizeHelper.Jwt
             };
 
             //将一个用户的多个角色都加入到声明中
-            claims.AddRange(tokenModel.Role.Split(",").Select(x => new Claim(ClaimTypes.Role, x)));
+            //claims.AddRange(tokenModel.Role.Split(",").Select(x => new Claim(ClaimTypes.Role, x)));
 
             //加载密钥
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(privateKey));

@@ -4,11 +4,11 @@
         <name>MediaHub</name>
     </assembly>
     <members>
-        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.GetToken(MediaHub.AuthorizeHelper.Jwt.TokenModel)">
+        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.GetToken(MediaHub.Model.MediaHubUser)">
             <summary>
             获取Token
             </summary>
-            <param name="tokenModel"></param>
+            <param name="user"></param>
             <returns></returns>
         </member>
         <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.SerializeToken(System.String)">

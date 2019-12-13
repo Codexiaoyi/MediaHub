@@ -89,7 +89,7 @@ namespace MediaHub.Controllers
                     string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
                     var saveFile = new FileModel
                     {
-                        FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName,
+                        FileName = file.FileName,
                         FilePath = filePath,
                         ExtensionName = fileExtension,
                         FileSize = file.Length

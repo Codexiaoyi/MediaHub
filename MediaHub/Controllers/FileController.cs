@@ -40,7 +40,6 @@ namespace MediaHub.Controllers
         [HttpGet("download")]
         public async Task<FileResult> Download(string id)
         {
-            //Guid guid = new Guid(Request.QueryString.Value.Remove(0, 3));
             Guid guid = new Guid(id);
             var file = await _fileRepository.QueryByIdAsync(guid);
             var filePath = file.FilePath;
@@ -55,9 +54,9 @@ namespace MediaHub.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete("delete")]
-        public async Task<ActionResult> Delete()
+        public async Task<ActionResult> Delete(string id)
         {
-            Guid guid = new Guid(Request.QueryString.Value.Remove(0, 3));
+            Guid guid = new Guid(id);
             var file = await _fileRepository.QueryByIdAsync(guid);
             var filePath = file.FilePath;
             await FileHelper.DeleteFileAsync(filePath);//删除相应文件
@@ -86,7 +85,8 @@ namespace MediaHub.Controllers
                 if (file.Length > 0)
                 {
                     string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, file.FileName);
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName;
+                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, fileName);
                     var saveFile = new FileModel
                     {
                         FileName = file.FileName,

@@ -17,6 +17,7 @@ namespace MediaHub.Controllers
 {
     [Route("api/file")]
     [ApiController]
+    [Authorize]
     public class FileController : ControllerBase
     {
         private readonly IFileRepository _fileRepository;

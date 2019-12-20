@@ -51,6 +51,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MediaHub.Controllers.LoginController.Register(MediaHub.ViewModel.MediaHubUserViewModel)">
+            <summary>
+            注册接口
+            </summary>
+            <param name="mediaHubUserViewModel"></param>
+            <returns></returns>
+        </member>
         <member name="M:MediaHub.Controllers.ValuesController.Get">
             <summary>
             获取所有数据

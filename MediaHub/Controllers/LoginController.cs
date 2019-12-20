@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MediaHub.Controllers
 {
-    [Route("api/Login")]
+    [Produces("application/json")]
+    [Route("api/user")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -25,20 +26,21 @@ namespace MediaHub.Controllers
 
         [HttpGet]
         [Route("login")]
-        public ActionResult GetToken(string userName, string password)
+        public async Task<ActionResult> GetToken(string userName, string userPassword)
         {
             string tokenStr = string.Empty;
             bool suc = false;
             //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
-            var user = TemporaryData.GetUser(userName);
-            if (user != null && user.Password.Equals(password))
+            //var user = TemporaryData.GetUser(userName);
+            var user = await _userRepository.QuaryUserByName(userName);
+            if (user != null && user.Password.Equals(userPassword))
             {
                 tokenStr = JwtHelper.GetToken(user);
                 suc = true;
             }
             else
             {
-                tokenStr = "login fail!!!";
+                tokenStr = "身份验证失败!";
             }
 
             return Ok(new
@@ -48,6 +50,11 @@ namespace MediaHub.Controllers
             });
         }
 
+        /// <summary>
+        /// 注册接口
+        /// </summary>
+        /// <param name="mediaHubUserViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("register")]
         public async Task<ActionResult> Register([FromBody] MediaHubUserViewModel mediaHubUserViewModel)

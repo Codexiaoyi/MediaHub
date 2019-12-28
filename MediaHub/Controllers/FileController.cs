@@ -79,26 +79,54 @@ namespace MediaHub.Controllers
         [HttpPost("upload")]
         public async Task<ActionResult> Post()
         {
-            var files = Request.Form.Files;
-            foreach (var file in files)
+            var data = Request.Form.Files["data"];
+            string lastModified = Request.Form["lastModified"].ToString();
+            var total = Request.Form["total"];
+            var fileName = Request.Form["fileName"];
+            var index = Request.Form["index"];
+            var fileSize = long.Parse(Request.Form["fileSize"]);
+
+            string temporaryFile = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", lastModified);
+            try
             {
-                if (file.Length > 0)
+                if (!Directory.Exists(temporaryFile))
+                    Directory.CreateDirectory(temporaryFile);
+                string tempPath = Path.Combine(temporaryFile, index.ToString());
+                if (!Convert.IsDBNull(data))
                 {
-                    string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + file.FileName;
-                    string filePath = Path.Combine(ApplicationEnvironment.ApplicationBasePath, fileName);
-                    var saveFile = new FileModel
-                    {
-                        FileName = file.FileName,
-                        FilePath = filePath,
-                        ExtensionName = fileExtension,
-                        FileSize = file.Length
-                    };
-                    await FileHelper.CreateFileAsync(file, filePath);
-                    await _fileRepository.AddAsync(saveFile);
+                    await FileHelper.CreateFileAsync(data, tempPath);
                 }
+                bool mergeOk = false;
+                if (total == index)
+                {
+                    var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+                    fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + fileName;
+                    var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
+                    mergeOk = await FileHelper.MergeFileAsync(lastModified, finalPath);
+                    if (mergeOk)
+                    {
+                        var saveFile = new FileModel
+                        {
+                            FileName = fileName,
+                            FilePath = finalPath,
+                            ExtensionName = fileExtension,
+                            FileSize = fileSize
+                        };
+                        await _fileRepository.AddAsync(saveFile);
+                    }
+                }
+
+                Dictionary<string, object> result = new Dictionary<string, object>();
+                result.Add("number", index);
+                result.Add("mergeOk", mergeOk);
+
+                return Ok(result);
             }
-            return Ok(new { count = files.Count, size = files.Sum(f => f.Length), success = true });
+            catch (Exception ex)
+            {
+                Directory.Delete(temporaryFile);
+                throw ex;
+            }
         }
     }
 }

@@ -51,6 +51,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MediaHub.Controllers.FileController.UploadChunk(MediaHub.ViewModel.FileChunkViewModel)">
+            <summary>
+            分片上传文件
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MediaHub.Controllers.LoginController.Register(MediaHub.ViewModel.MediaHubUserViewModel)">
             <summary>
             注册接口
@@ -63,6 +69,51 @@
             获取所有数据
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:MediaHub.Profiles.MediaHubUserProfile">
+            <summary>
+            用户模型与用户视图模型映射
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.ChunkNumber">
+            <summary>
+            当前文件块，1开始
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.ChunkSize">
+            <summary>
+            分块大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.CurrentChunkSize">
+            <summary>
+            当前分块大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.TotalSize">
+            <summary>
+            总大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.Identifier">
+            <summary>
+            文件标识
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.Filename">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.RelativePath">
+            <summary>
+            相对路径
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.FileChunkViewModel.TotalChunks">
+            <summary>
+            总块数
+            </summary>
         </member>
     </members>
 </doc>

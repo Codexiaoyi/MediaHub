@@ -10,6 +10,11 @@ namespace MediaHub.Common.Helper
 {
     public class FileHelper
     {
+        public FileHelper()
+        {
+
+        }
+
         public async static Task CreateFileAsync(IFormFile file, string filePath)
         {
             using (var stream = new FileStream(filePath, FileMode.Create))

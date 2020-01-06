@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediaHub.Data;
 using MediaHub.IRepository;
 using MediaHub.Model;
-using MediaHub.Respository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -21,14 +20,14 @@ namespace MediaHub.Repository
 
         public async Task<List<FileModel>> QueryAllFileAsync()
         {
-            return await _myContext.FileModels
+            return await _myContext.Files
                 .ToListAsync();
         }
 
-        public async Task<FileModel> QueryByIdAsync(Guid id)
-        {
-            return await _myContext.FileModels
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
+        //public async Task<FileInfo> QueryByIdAsync(Guid id)
+        //{
+        //    return await _myContext.Files
+        //        .FirstOrDefaultAsync(x => x.Id == id);
+        //}
     }
 }

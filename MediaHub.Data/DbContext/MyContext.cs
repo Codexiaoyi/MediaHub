@@ -16,10 +16,11 @@ namespace MediaHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
         }
 
-        public DbSet<FileModel> FileModels { get; set; }
+        public DbSet<FileModel> Files { get; set; }
         public DbSet<MediaHubUser> MediaHubUsers { get; set; }
+        public DbSet<FileChunk> FileChunks { get; set; }
     }
 }

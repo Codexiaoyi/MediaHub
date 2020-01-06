@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediaHub.AuthorizeHelper.Jwt;
 using MediaHub.Data.SeedData;
 using MediaHub.IRepository;
@@ -18,10 +19,12 @@ namespace MediaHub.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public LoginController(IUserRepository userRepository)
+        public LoginController(IUserRepository userRepository, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -32,7 +35,7 @@ namespace MediaHub.Controllers
             bool suc = false;
             //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
             //var user = TemporaryData.GetUser(userName);
-            var user = await _userRepository.QuaryUserByName(userName);
+            var user = await _userRepository.QueryUserByName(userName);
             if (user != null && user.Password.Equals(userPassword))
             {
                 tokenStr = JwtHelper.GetToken(user);
@@ -63,12 +66,8 @@ namespace MediaHub.Controllers
 
             if (ModelState.IsValid)
             {
-                var newUser = new MediaHubUser
-                {
-                    UserName = mediaHubUserViewModel.UserName,
-                    Password = mediaHubUserViewModel.Password,
-                    Email = mediaHubUserViewModel.Email
-                };
+                //automapper映射
+                var newUser = _mapper.Map<MediaHubUser>(mediaHubUserViewModel);
 
                 var result = await _userRepository.AddAsync(newUser);
                 if (result > 0)

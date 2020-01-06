@@ -14,6 +14,6 @@ namespace MediaHub.IRepository
         /// <returns></returns>
         Task<List<FileModel>> QueryAllFileAsync();
 
-        Task<FileModel> QueryByIdAsync(Guid id);
+        //Task<FileInfo> QueryByIdAsync(Guid id);
     }
 }

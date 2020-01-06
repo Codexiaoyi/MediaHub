@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using MediaHub.Common;
 using MediaHub.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +27,9 @@ namespace MediaHub
         {
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //AutoMapper配置
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSingleton(new Appsettings(Env.ContentRootPath));
 
@@ -68,6 +72,11 @@ namespace MediaHub
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                //app.UseExceptionHandler(appBuilder=> {
+                //    appBuilder.Run(async context=>{
+                //         context.Response.StatusCode = 500;
+                //    });
+                //});
             }
 
             //app.UseHttpsRedirection();

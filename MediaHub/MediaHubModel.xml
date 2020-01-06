@@ -9,6 +9,46 @@
             作为所有实体的基类
             </summary>
         </member>
+        <member name="P:MediaHub.Model.FileChunk.ChunkNumber">
+            <summary>
+            当前文件块，1开始
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.ChunkSize">
+            <summary>
+            分块大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.CurrentChunkSize">
+            <summary>
+            当前分块大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.TotalSize">
+            <summary>
+            总大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.Identifier">
+            <summary>
+            文件标识
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.Filename">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.RelativePath">
+            <summary>
+            相对路径
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.FileChunk.TotalChunks">
+            <summary>
+            总块数
+            </summary>
+        </member>
         <member name="P:MediaHub.Model.FileModel.FileName">
             <summary>
             文件名称

@@ -23,5 +23,8 @@ namespace MediaHub.IRepository
         //Task<bool> DeleteById(object id);
         //Task<bool> DeleteByIds(object[] ids);
         #endregion
+        #region Find查询操作
+        Task<TEntity> QueryByIdAsync(Guid id);
+        #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MediaHub.Data;
 using MediaHub.IRepository;
 using MediaHub.Model;
-using MediaHub.Respository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -17,13 +16,13 @@ namespace MediaHub.Repository
             _myContext = myContext;
         }
 
-        public async Task<MediaHubUser> QuaryUserById(Guid id)
-        {
-            return await _myContext.MediaHubUsers
-                .FirstOrDefaultAsync(f => f.Id == id);
-        }
+        //public async Task<MediaHubUser> QuaryUserById(Guid id)
+        //{
+        //    return await _myContext.MediaHubUsers
+        //        .FirstOrDefaultAsync(f => f.Id == id);
+        //}
 
-        public async Task<MediaHubUser> QuaryUserByName(string userName)
+        public async Task<MediaHubUser> QueryUserByName(string userName)
         {
             return await _myContext.MediaHubUsers
                 .FirstOrDefaultAsync(f => f.UserName == userName);

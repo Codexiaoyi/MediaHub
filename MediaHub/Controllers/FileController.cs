@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediaHub.Common.Helper;
 using MediaHub.IRepository;
 using MediaHub.Model;
+using MediaHub.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -19,11 +21,15 @@ namespace MediaHub.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
+        private readonly IFileChunkRepository _fileChunkRepository;
         private readonly IFileRepository _fileRepository;
+        private readonly IMapper _mapper;
 
-        public FileController(IFileRepository fileRepository)
+        public FileController(IFileChunkRepository fileChunkRepository, IFileRepository fileRepository, IMapper mapper)
         {
+            _fileChunkRepository = fileChunkRepository;
             _fileRepository = fileRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -105,7 +111,7 @@ namespace MediaHub.Controllers
                     mergeOk = await FileHelper.MergeFileAsync(lastModified, finalPath);
                     if (mergeOk)
                     {
-                        var saveFile = new FileModel
+                        var saveFile = new Model.FileModel
                         {
                             FileName = fileName,
                             FilePath = finalPath,
@@ -127,6 +133,59 @@ namespace MediaHub.Controllers
                 Directory.Delete(temporaryFile);
                 throw ex;
             }
+        }
+
+        [HttpGet("upload/chunk")]
+        public ActionResult<FileChunkViewModel> Check([FromQuery] FileChunkViewModel fileChunkViewModel)
+        {
+            return fileChunkViewModel;
+        }
+
+        /// <summary>
+        /// 分片上传文件
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("upload/chunk")]
+        public async Task<ActionResult> UploadChunk([FromForm] FileChunkViewModel fileChunkViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var file = fileChunkViewModel.file;//文件
+            string temporaryFile = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileChunkViewModel.Filename);
+            if (!Directory.Exists(temporaryFile))
+                Directory.CreateDirectory(temporaryFile);
+            string tempPath = Path.Combine(temporaryFile, fileChunkViewModel.ChunkNumber.ToString());
+            if (!Convert.IsDBNull(file))
+            {
+                await FileHelper.CreateFileAsync(file, tempPath);
+            }
+
+            var fileInfo = _mapper.Map<FileChunk>(fileChunkViewModel);
+            int result = await _fileChunkRepository.AddAsync(fileInfo);
+            return Ok();
+        }
+
+        [HttpPost("upload/merge")]
+        public async Task<ActionResult> MergeFile([FromForm] Model.FileInfo fileInfo)
+        {
+            var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
+            var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "final" + fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
+            var mergeOk = await FileHelper.MergeFileAsync(lastModified, finalPath);
+            if (mergeOk)
+            {
+                var saveFile = new Model.FileModel
+                {
+                    FileName = fileInfo.FileName,
+                    FilePath = finalPath,
+                    ExtensionName = fileInfo.Type,
+                    FileSize = fileInfo.TotalSize
+                };
+                await _fileRepository.AddAsync(saveFile);
+            }
+            return Ok();
         }
     }
 }

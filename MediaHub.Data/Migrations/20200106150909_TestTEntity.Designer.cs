@@ -3,50 +3,20 @@ using System;
 using MediaHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MediaHub.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20200106150909_TestTEntity")]
+    partial class TestTEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
-
-            modelBuilder.Entity("MediaHub.Model.FileChunk", b =>
-                {
-                    b.Property<byte[]>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
-
-                    b.Property<int>("ChunkNumber");
-
-                    b.Property<long>("ChunkSize");
-
-                    b.Property<string>("CreateDate");
-
-                    b.Property<long>("CurrentChunkSize");
-
-                    b.Property<string>("Filename")
-                        .IsRequired();
-
-                    b.Property<string>("Identifier")
-                        .IsRequired();
-
-                    b.Property<string>("RelativePath")
-                        .IsRequired();
-
-                    b.Property<int>("TotalChunks");
-
-                    b.Property<long>("TotalSize");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileChunks");
-                });
 
             modelBuilder.Entity("MediaHub.Model.FileInfo", b =>
                 {

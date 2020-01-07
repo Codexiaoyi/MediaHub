@@ -138,6 +138,7 @@ namespace MediaHub.Controllers
         [HttpGet("upload/chunk")]
         public ActionResult<FileChunkViewModel> Check([FromQuery] FileChunkViewModel fileChunkViewModel)
         {
+            HttpContext.Response.StatusCode = 304;
             return fileChunkViewModel;
         }
 
@@ -154,7 +155,7 @@ namespace MediaHub.Controllers
             }
 
             var file = fileChunkViewModel.file;//文件
-            string temporaryFile = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileChunkViewModel.Filename);
+            string temporaryFile = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "Chunk" + fileChunkViewModel.Filename);
             if (!Directory.Exists(temporaryFile))
                 Directory.CreateDirectory(temporaryFile);
             string tempPath = Path.Combine(temporaryFile, fileChunkViewModel.ChunkNumber.ToString());
@@ -171,8 +172,8 @@ namespace MediaHub.Controllers
         [HttpPost("upload/merge")]
         public async Task<ActionResult> MergeFile([FromForm] Model.FileInfo fileInfo)
         {
-            var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
-            var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "final" + fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
+            var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "Chunk" + fileInfo.FileName);
+            var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
             var mergeOk = await FileHelper.MergeFileAsync(lastModified, finalPath);
             if (mergeOk)
             {
@@ -180,7 +181,7 @@ namespace MediaHub.Controllers
                 {
                     FileName = fileInfo.FileName,
                     FilePath = finalPath,
-                    ExtensionName = fileInfo.Type,
+                    ExtensionName = Path.GetExtension(fileInfo.FileName),
                     FileSize = fileInfo.TotalSize
                 };
                 await _fileRepository.AddAsync(saveFile);

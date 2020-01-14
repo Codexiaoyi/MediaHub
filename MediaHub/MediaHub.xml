@@ -115,5 +115,30 @@
             总块数
             </summary>
         </member>
+        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.UserAccount">
+            <summary>
+            账号(唯一)
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.UserName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
     </members>
 </doc>

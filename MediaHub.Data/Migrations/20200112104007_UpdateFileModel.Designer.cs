@@ -3,14 +3,16 @@ using System;
 using MediaHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MediaHub.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20200112104007_UpdateFileModel")]
+    partial class UpdateFileModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,15 +83,11 @@ namespace MediaHub.Data.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int>("Gender");
-
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<string>("UserAccount")
+                    b.Property<string>("UserName")
                         .IsRequired();
-
-                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 

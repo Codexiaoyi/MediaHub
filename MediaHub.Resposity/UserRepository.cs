@@ -22,10 +22,10 @@ namespace MediaHub.Repository
         //        .FirstOrDefaultAsync(f => f.Id == id);
         //}
 
-        public async Task<MediaHubUser> QueryUserByName(string userName)
+        public async Task<MediaHubUser> QueryUserByAccount(string userAccount)
         {
             return await _myContext.MediaHubUsers
-                .FirstOrDefaultAsync(f => f.UserName == userName);
+                .FirstOrDefaultAsync(f => f.UserAccount == userAccount);
         }
     }
 }

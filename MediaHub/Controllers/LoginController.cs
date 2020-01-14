@@ -29,21 +29,17 @@ namespace MediaHub.Controllers
 
         [HttpGet]
         [Route("login")]
-        public async Task<ActionResult> GetToken(string userName, string userPassword)
+        public async Task<ActionResult> GetToken(string userAccount, string userPassword)
         {
             string tokenStr = string.Empty;
             bool suc = false;
             //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
             //var user = TemporaryData.GetUser(userName);
-            var user = await _userRepository.QueryUserByName(userName);
+            var user = await _userRepository.QueryUserByAccount(userAccount);
             if (user != null && user.Password.Equals(userPassword))
             {
                 tokenStr = JwtHelper.GetToken(user);
                 suc = true;
-            }
-            else
-            {
-                tokenStr = "身份验证失败!";
             }
 
             return Ok(new
@@ -63,7 +59,6 @@ namespace MediaHub.Controllers
         public async Task<ActionResult> Register([FromBody] MediaHubUserViewModel mediaHubUserViewModel)
         {
             bool suc = false;
-
             if (ModelState.IsValid)
             {
                 //automapper映射

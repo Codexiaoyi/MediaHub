@@ -10,17 +10,18 @@ namespace MediaHub.Model
         /// <summary>
         /// 文件名称
         /// </summary>
-        [Required]
         public string FileName { get; set; }
+        /// <summary>
+        /// 文件名称
+        /// </summary>
+        public string Identifier { get; set; }
         /// <summary>
         /// 文件扩展名
         /// </summary>
-        [Required]
         public string ExtensionName { get; set; }
         /// <summary>
         /// 文件路径
         /// </summary>
-        [Required]
         public string FilePath { get; set; }
         /// <summary>
         /// 文件大小

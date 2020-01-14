@@ -27,11 +27,11 @@ namespace MediaHub.AuthorizeHelper.Jwt
 
             //创建声明
             var claims = new List<Claim> {
-                new Claim(JwtRegisteredClaimNames.Jti, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, user.UserAccount),
                 new Claim(JwtRegisteredClaimNames.Iat, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"),
                 new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                 //这个就是过期时间，目前是过期1000秒，可自定义，注意JWT有自己的缓冲过期时间
-                new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddSeconds(150)).ToUnixTimeSeconds()}"),
+                new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddMinutes(180)).ToUnixTimeSeconds()}"),
                 new Claim(JwtRegisteredClaimNames.Iss,issuer),
                 new Claim(JwtRegisteredClaimNames.Aud,audience)
             };

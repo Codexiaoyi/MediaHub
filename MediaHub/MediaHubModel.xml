@@ -54,6 +54,11 @@
             文件名称
             </summary>
         </member>
+        <member name="P:MediaHub.Model.FileModel.Identifier">
+            <summary>
+            文件名称
+            </summary>
+        </member>
         <member name="P:MediaHub.Model.FileModel.ExtensionName">
             <summary>
             文件扩展名
@@ -67,6 +72,31 @@
         <member name="P:MediaHub.Model.FileModel.FileSize">
             <summary>
             文件大小
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.MediaHubUser.UserAccount">
+            <summary>
+            账号(唯一)
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.MediaHubUser.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.MediaHubUser.UserName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.MediaHubUser.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.MediaHubUser.Email">
+            <summary>
+            邮箱
             </summary>
         </member>
     </members>

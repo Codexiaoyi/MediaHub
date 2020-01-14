@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200106150638_TestTEntity.cs" />
     <Compile Remove="Migrations\20200106150638_TestTEntity.Designer.cs" />
+    <Compile Remove="Migrations\20200114144451_ModifyUserTable.cs" />
+    <Compile Remove="Migrations\20200114144451_ModifyUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200114144947_ModifyUserTable.cs" />
+    <Compile Remove="Migrations\20200114144947_ModifyUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200114145600_ModifyUserTable.cs" />
+    <Compile Remove="Migrations\20200114145600_ModifyUserTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

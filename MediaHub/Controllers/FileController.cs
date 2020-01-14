@@ -170,21 +170,16 @@ namespace MediaHub.Controllers
         }
 
         [HttpPost("upload/merge")]
-        public async Task<ActionResult> MergeFile([FromForm] Model.FileInfo fileInfo)
+        public async Task<ActionResult> MergeFile([FromForm] FileModelViewModel fileModelViewModel)
         {
-            var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "Chunk" + fileInfo.FileName);
-            var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileInfo.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
+            var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "Chunk" + fileModelViewModel.FileName);
+            var finalPath = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", fileModelViewModel.FileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
             var mergeOk = await FileHelper.MergeFileAsync(lastModified, finalPath);
             if (mergeOk)
             {
-                var saveFile = new Model.FileModel
-                {
-                    FileName = fileInfo.FileName,
-                    FilePath = finalPath,
-                    ExtensionName = Path.GetExtension(fileInfo.FileName),
-                    FileSize = fileInfo.TotalSize
-                };
-                await _fileRepository.AddAsync(saveFile);
+                var newFile = _mapper.Map<FileModel>(fileModelViewModel);
+                newFile.FilePath = finalPath;
+                await _fileRepository.AddAsync(newFile);
             }
             return Ok();
         }

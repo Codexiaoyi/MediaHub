@@ -8,6 +8,6 @@ namespace MediaHub.IRepository
 {
     public interface IUserRepository : IBaseRepository<MediaHubUser>
     {
-        Task<MediaHubUser> QueryUserByName(string userName);
+        Task<MediaHubUser> QueryUserByAccount(string userAccount);
     }
 }

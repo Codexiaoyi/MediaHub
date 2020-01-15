@@ -45,6 +45,7 @@ namespace MediaHub.Controllers
             return Ok(new
             {
                 success = suc,
+                ma = user.UserAccount,
                 token = tokenStr
             });
         }
@@ -56,7 +57,7 @@ namespace MediaHub.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Register([FromBody] MediaHubUserViewModel mediaHubUserViewModel)
+        public async Task<ActionResult> Register(MediaHubUserViewModel mediaHubUserViewModel)
         {
             bool suc = false;
             if (ModelState.IsValid)

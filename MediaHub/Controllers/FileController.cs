@@ -136,6 +136,7 @@ namespace MediaHub.Controllers
         }
 
         [HttpGet("upload/chunk")]
+        [Authorize]
         public ActionResult<FileChunkViewModel> Check([FromQuery] FileChunkViewModel fileChunkViewModel)
         {
             HttpContext.Response.StatusCode = 304;
@@ -147,6 +148,7 @@ namespace MediaHub.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("upload/chunk")]
+        [Authorize]
         public async Task<ActionResult> UploadChunk([FromForm] FileChunkViewModel fileChunkViewModel)
         {
             if (!ModelState.IsValid)
@@ -170,6 +172,7 @@ namespace MediaHub.Controllers
         }
 
         [HttpPost("upload/merge")]
+        [Authorize]
         public async Task<ActionResult> MergeFile([FromForm] FileModelViewModel fileModelViewModel)
         {
             var lastModified = Path.Combine($"{Directory.GetCurrentDirectory()}/wwwroot/", "Chunk" + fileModelViewModel.FileName);

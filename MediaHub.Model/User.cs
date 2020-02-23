@@ -1,19 +1,21 @@
-﻿using MediaHub.Common.Attribute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace MediaHub.ViewModel
+namespace MediaHub.Model
 {
-    public class MediaHubUserViewModel
+    public class User : BaseEntity
     {
+        public User()
+        {
+            Albums = new List<Album>();
+        }
+
         /// <summary>
         /// 账号(唯一)
         /// </summary>
         [Required]
-        [Account]
         public string UserAccount { get; set; }
         /// <summary>
         /// 密码
@@ -33,5 +35,7 @@ namespace MediaHub.ViewModel
         /// </summary>
         [EmailAddress]
         public string Email { get; set; }
+
+        public List<Album> Albums { get; set; }
     }
 }

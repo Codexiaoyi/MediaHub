@@ -8,9 +8,9 @@ namespace MediaHub.Data.SeedData
 {
     public static class TemporaryData
     {
-        private static List<MediaHubUser> Users = new List<MediaHubUser>() { new MediaHubUser { UserName = "张老二", Password = "zhangzhiersb" }, new MediaHubUser { UserName = "王弟弟", Password = "wangdidisb" } };
+        private static List<User> Users = new List<User>() { new User { UserName = "张老二", Password = "zhangzhiersb" }, new User { UserName = "王弟弟", Password = "wangdidisb" } };
 
-        public static MediaHubUser GetUser(string userName)
+        public static User GetUser(string userName)
         {
             return Users.FirstOrDefault(m => m.UserName.Equals(userName));
         }

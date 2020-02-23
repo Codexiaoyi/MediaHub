@@ -17,6 +17,9 @@ namespace MediaHub.ViewModel
         [Required]
         public long TotalSize { get; set; }
 
+        [Required]
+        public Guid AlbumId { get; set; }
+
         public string Type { get; set; }
     }
 }

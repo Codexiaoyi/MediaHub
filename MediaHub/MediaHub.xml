@@ -4,7 +4,7 @@
         <name>MediaHub</name>
     </assembly>
     <members>
-        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.GetToken(MediaHub.Model.MediaHubUser)">
+        <member name="M:MediaHub.AuthorizeHelper.Jwt.JwtHelper.GetToken(MediaHub.Model.User)">
             <summary>
             获取Token
             </summary>
@@ -33,6 +33,34 @@
             角色
             </summary>
         </member>
+        <member name="M:MediaHub.Controllers.AlbumController.GetAlbums(System.Guid)">
+            <summary>
+            获取相册集
+            </summary>
+            <param name="userId">用户的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.Controllers.AlbumController.GetCoverImage(System.Guid)">
+            <summary>
+            获取相册封面
+            </summary>
+            <param name="albumId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.Controllers.AlbumController.AddAlbum(MediaHub.ViewModel.AlbumViewModel)">
+            <summary>
+            添加相册
+            </summary>
+            <param name="albumViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaHub.Controllers.AlbumController.DeleteAlbum(System.Guid)">
+            <summary>
+            删除相册
+            </summary>
+            <param name="albumId"></param>
+            <returns></returns>
+        </member>
         <member name="M:MediaHub.Controllers.FileController.Get">
             <summary>
             获取所有文件信息
@@ -57,22 +85,31 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MediaHub.Controllers.LoginController.Register(MediaHub.ViewModel.MediaHubUserViewModel)">
+        <member name="M:MediaHub.Controllers.UserController.Register(MediaHub.ViewModel.UserViewModel)">
             <summary>
             注册接口
             </summary>
-            <param name="mediaHubUserViewModel"></param>
+            <param name="userViewModel"></param>
             <returns></returns>
         </member>
-        <member name="M:MediaHub.Controllers.ValuesController.Get">
-            <summary>
-            获取所有数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:MediaHub.Profiles.MediaHubUserProfile">
+        <member name="T:MediaHub.Profiles.UserProfile">
             <summary>
             用户模型与用户视图模型映射
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.AlbumViewModel.CoverMessage">
+            <summary>
+            封面留言
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.AlbumViewModel.UserId">
+            <summary>
+            外键,关联到某个用户
+            </summary>
+        </member>
+        <member name="P:MediaHub.ViewModel.AlbumViewModel.CoverImage">
+            <summary>
+            封面的图片
             </summary>
         </member>
         <member name="P:MediaHub.ViewModel.FileChunkViewModel.ChunkNumber">
@@ -115,27 +152,27 @@
             总块数
             </summary>
         </member>
-        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.UserAccount">
+        <member name="P:MediaHub.ViewModel.UserViewModel.UserAccount">
             <summary>
             账号(唯一)
             </summary>
         </member>
-        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Password">
+        <member name="P:MediaHub.ViewModel.UserViewModel.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.UserName">
+        <member name="P:MediaHub.ViewModel.UserViewModel.UserName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Gender">
+        <member name="P:MediaHub.ViewModel.UserViewModel.Gender">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:MediaHub.ViewModel.MediaHubUserViewModel.Email">
+        <member name="P:MediaHub.ViewModel.UserViewModel.Email">
             <summary>
             邮箱
             </summary>

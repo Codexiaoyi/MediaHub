@@ -19,7 +19,7 @@ namespace MediaHub.AuthorizeHelper.Jwt
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetToken(MediaHubUser user)
+        public static string GetToken(User user)
         {
             string issuer = Appsettings.GetJsonString(new string[] { "Audience", "Issuer" });//获取发布人
             string audience = Appsettings.GetJsonString(new string[] { "Audience", "Audience" });//获取作者

@@ -10,14 +10,14 @@ namespace MediaHub.Common.Helper
 {
     public class FileHelper
     {
-        public FileHelper()
-        {
+        public static string BaseFilePath = Directory.GetCurrentDirectory() + "/wwwroot/";
 
-        }
-
-        public async static Task CreateFileAsync(IFormFile file, string filePath)
+        public async static Task CreateFileAsync(IFormFile file, string relativePath)
         {
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            var filePath = Path.Combine(BaseFilePath, relativePath);//创建最终地址
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
+            using (var stream = new FileStream(filePath + @"\" + file.FileName, FileMode.Create, FileAccess.ReadWrite))
             {
                 await file.CopyToAsync(stream);
             }

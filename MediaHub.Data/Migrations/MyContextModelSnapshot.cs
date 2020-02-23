@@ -16,6 +16,29 @@ namespace MediaHub.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
+            modelBuilder.Entity("MediaHub.Model.Album", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
+                    b.Property<string>("CoverMessage");
+
+                    b.Property<string>("CoverUrl");
+
+                    b.Property<string>("CreateDate");
+
+                    b.Property<byte[]>("UserId")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Albums");
+                });
+
             modelBuilder.Entity("MediaHub.Model.FileChunk", b =>
                 {
                     b.Property<byte[]>("Id")
@@ -54,6 +77,10 @@ namespace MediaHub.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
 
+                    b.Property<byte[]>("AlbumId")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<byte[], byte[]>(v => default(byte[]), v => default(byte[]), new ConverterMappingHints(size: 16)));
+
                     b.Property<string>("CreateDate");
 
                     b.Property<string>("ExtensionName");
@@ -68,10 +95,12 @@ namespace MediaHub.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AlbumId");
+
                     b.ToTable("Files");
                 });
 
-            modelBuilder.Entity("MediaHub.Model.MediaHubUser", b =>
+            modelBuilder.Entity("MediaHub.Model.User", b =>
                 {
                     b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +122,23 @@ namespace MediaHub.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MediaHubUsers");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MediaHub.Model.Album", b =>
+                {
+                    b.HasOne("MediaHub.Model.User", "User")
+                        .WithMany("Albums")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MediaHub.Model.FileModel", b =>
+                {
+                    b.HasOne("MediaHub.Model.Album", "Album")
+                        .WithMany("Files")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

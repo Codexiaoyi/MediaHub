@@ -1,16 +1,19 @@
-﻿using System;
+﻿using MediaHub.Common.Attribute;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MediaHub.Model
+namespace MediaHub.ViewModel
 {
-    public class MediaHubUser : BaseEntity
+    public class UserViewModel
     {
         /// <summary>
         /// 账号(唯一)
         /// </summary>
         [Required]
+        [Account]
         public string UserAccount { get; set; }
         /// <summary>
         /// 密码

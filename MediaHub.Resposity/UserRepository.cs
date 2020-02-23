@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaHub.Repository
 {
-    public class UserRepository : BaseRepository<MediaHubUser>, IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         private readonly MyContext _myContext;
 
@@ -22,9 +22,9 @@ namespace MediaHub.Repository
         //        .FirstOrDefaultAsync(f => f.Id == id);
         //}
 
-        public async Task<MediaHubUser> QueryUserByAccount(string userAccount)
+        public async Task<User> QueryUserByAccount(string userAccount)
         {
-            return await _myContext.MediaHubUsers
+            return await _myContext.Users
                 .FirstOrDefaultAsync(f => f.UserAccount == userAccount);
         }
     }

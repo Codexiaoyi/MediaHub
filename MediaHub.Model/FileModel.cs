@@ -27,5 +27,9 @@ namespace MediaHub.Model
         /// 文件大小
         /// </summary>
         public long FileSize { get; set; }
+
+        public Guid AlbumId { get; set; }
+
+        public Album Album { get; set; }
     }
 }

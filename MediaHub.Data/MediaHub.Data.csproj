@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20200114144947_ModifyUserTable.Designer.cs" />
     <Compile Remove="Migrations\20200114145600_ModifyUserTable.cs" />
     <Compile Remove="Migrations\20200114145600_ModifyUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200222141142_UpdateAlbum.cs" />
+    <Compile Remove="Migrations\20200222141142_UpdateAlbum.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

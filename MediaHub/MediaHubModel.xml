@@ -4,6 +4,31 @@
         <name>MediaHub.Model</name>
     </assembly>
     <members>
+        <member name="P:MediaHub.Model.Album.CoverMessage">
+            <summary>
+            封面留言
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.Album.CoverUrl">
+            <summary>
+            封面地址
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.Album.UserId">
+            <summary>
+            外键,关联到某个用户
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.Album.User">
+            <summary>
+            属于某个用户
+            </summary>
+        </member>
+        <member name="P:MediaHub.Model.Album.Files">
+            <summary>
+            对应多个文件（暂时包含图片和视频）
+            </summary>
+        </member>
         <member name="T:MediaHub.Model.BaseEntity">
             <summary>
             作为所有实体的基类
@@ -74,27 +99,27 @@
             文件大小
             </summary>
         </member>
-        <member name="P:MediaHub.Model.MediaHubUser.UserAccount">
+        <member name="P:MediaHub.Model.User.UserAccount">
             <summary>
             账号(唯一)
             </summary>
         </member>
-        <member name="P:MediaHub.Model.MediaHubUser.Password">
+        <member name="P:MediaHub.Model.User.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:MediaHub.Model.MediaHubUser.UserName">
+        <member name="P:MediaHub.Model.User.UserName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:MediaHub.Model.MediaHubUser.Gender">
+        <member name="P:MediaHub.Model.User.Gender">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:MediaHub.Model.MediaHubUser.Email">
+        <member name="P:MediaHub.Model.User.Email">
             <summary>
             邮箱
             </summary>

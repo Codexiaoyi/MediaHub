@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MediaHub.IRepository
 {
-    public interface IUserRepository : IBaseRepository<MediaHubUser>
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Task<MediaHubUser> QueryUserByAccount(string userAccount);
+        Task<User> QueryUserByAccount(string userAccount);
     }
 }

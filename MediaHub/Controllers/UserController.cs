@@ -16,36 +16,37 @@ namespace MediaHub.Controllers
     [Produces("application/json")]
     [Route("api/user")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public LoginController(IUserRepository userRepository, IMapper mapper)
+        public UserController(IUserRepository userRepository, IMapper mapper)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userRepository = userRepository ;
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
         [Route("login")]
-        public async Task<ActionResult> GetToken(string userAccount, string userPassword)
+        public async Task<ActionResult> Login(string userAccount, string userPassword)
         {
-            string tokenStr = string.Empty;
-            bool suc = false;
             //这里就是用户登陆以后，通过数据库去调取数据，分配权限的操作
             //var user = TemporaryData.GetUser(userName);
             var user = await _userRepository.QueryUserByAccount(userAccount);
+            string tokenStr;
             if (user != null && user.Password.Equals(userPassword))
             {
                 tokenStr = JwtHelper.GetToken(user);
-                suc = true;
+            }
+            else
+            {
+                return NotFound();
             }
 
             return Ok(new
             {
-                success = suc,
-                ma = user.UserAccount,
+                amigo = user.Id,
                 token = tokenStr
             });
         }
@@ -53,17 +54,17 @@ namespace MediaHub.Controllers
         /// <summary>
         /// 注册接口
         /// </summary>
-        /// <param name="mediaHubUserViewModel"></param>
+        /// <param name="userViewModel"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Register(MediaHubUserViewModel mediaHubUserViewModel)
+        public async Task<ActionResult> Register(UserViewModel userViewModel)
         {
             bool suc = false;
             if (ModelState.IsValid)
             {
                 //automapper映射
-                var newUser = _mapper.Map<MediaHubUser>(mediaHubUserViewModel);
+                var newUser = _mapper.Map<User>(userViewModel);
 
                 var result = await _userRepository.AddAsync(newUser);
                 if (result > 0)

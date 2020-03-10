@@ -20,6 +20,10 @@ namespace MediaHub.Model
         /// </summary>
         public string ExtensionName { get; set; }
         /// <summary>
+        /// 文件类型
+        /// </summary>
+        public FileType FileType { get; set; }
+        /// <summary>
         /// 文件路径
         /// </summary>
         public string FilePath { get; set; }
@@ -31,5 +35,11 @@ namespace MediaHub.Model
         public Guid AlbumId { get; set; }
 
         public Album Album { get; set; }
+    }
+
+    public enum FileType
+    {
+        Image = 1,
+        Video = 2
     }
 }

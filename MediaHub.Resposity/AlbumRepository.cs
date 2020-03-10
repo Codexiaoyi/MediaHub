@@ -27,5 +27,15 @@ namespace MediaHub.Repository
         {
             return await _myContext.Albums.Where(x => x.UserId == userId).ToListAsync();
         }
+
+        /// <summary>
+        /// 返回单个相册
+        /// </summary>
+        /// <param name="albumId"></param>
+        /// <returns></returns>
+        public async Task<Album> QueryAlbumById(Guid albumId)
+        {
+            return await _myContext.Albums.FirstOrDefaultAsync(x => albumId == x.Id);
+        }
     }
 }

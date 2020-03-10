@@ -89,6 +89,11 @@
             文件扩展名
             </summary>
         </member>
+        <member name="P:MediaHub.Model.FileModel.FileType">
+            <summary>
+            文件类型
+            </summary>
+        </member>
         <member name="P:MediaHub.Model.FileModel.FilePath">
             <summary>
             文件路径

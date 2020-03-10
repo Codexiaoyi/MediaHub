@@ -12,6 +12,21 @@ namespace MediaHub.Common.Helper
     {
         public static string BaseFilePath = Directory.GetCurrentDirectory() + "/wwwroot/";
 
+        public static Dictionary<string, string> ContentTypeDic = new Dictionary<string, string>()
+        {
+            {"jpg","image/jpeg"},
+            {"jpeg","image/jpeg"},
+            {"jpe","image/jpeg"},
+            {"png","image/png"},
+            {"gif","image/gif"},
+            {"ico","image/x-ico"},
+            {"tif","image/tiff"},
+            {"tiff","image/tiff"},
+            {"fax","image/fax"},
+            {"wbmp","image//vnd.wap.wbmp"},
+            {"rp","image/vnd.rn-realpix"}
+        };
+
         public async static Task CreateFileAsync(IFormFile file, string relativePath)
         {
             var filePath = Path.Combine(BaseFilePath, relativePath);//创建最终地址
@@ -55,14 +70,46 @@ namespace MediaHub.Common.Helper
         /// <param name="srcPath"></param>
         public async static Task DeleteFileAsync(string srcPath)
         {
-            await Task.Run(() =>
             {
-                try
+                //根据路径字符串判断是文件还是文件夹
+                FileAttributes fileAttributes = File.GetAttributes(srcPath);
+                await Task.Run(() =>
                 {
-                    File.Delete(srcPath);      //删除指定文件
-                }
-                catch { }
-            });
+                    try
+                    {
+                        if (fileAttributes == FileAttributes.Directory)
+                        {
+                            //文件夹删除
+                            Directory.Delete(srcPath, true);
+                        }
+                        else
+                        {
+                            //文件删除
+                            File.Delete(srcPath);
+                        }
+                    }
+                    catch { }
+                });
+            }
+        }
+
+        /// <summary>
+        /// 获取文件内容类型
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <returns>类型</returns>
+        public static string GetContentType(string fileName)
+        {
+            var typeSplit = fileName.Split('.');
+            var fileExtention = typeSplit[typeSplit.Length - 1].ToLower();
+            if (!ContentTypeDic.ContainsKey(fileExtention))
+            {
+                return null;
+            }
+            else
+            {
+                return ContentTypeDic[fileExtention];
+            }
         }
     }
 }

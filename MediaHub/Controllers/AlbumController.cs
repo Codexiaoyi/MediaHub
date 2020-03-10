@@ -50,17 +50,17 @@ namespace MediaHub.Controllers
         /// </summary>
         /// <param name="albumId"></param>
         /// <returns></returns>
-        [HttpGet("coverimage")]
-        //[Authorize]
+        [HttpGet("cover")]
         public async Task<ActionResult> GetCoverImage(Guid albumId)
         {
             var album = await _albumRepository.QueryByIdAsync(albumId);
+            var contentType = FileHelper.GetContentType(album.CoverUrl);
             using (var sw = new FileStream(album.CoverUrl, FileMode.Open))
             {
                 var bytes = new byte[sw.Length];
                 sw.Read(bytes, 0, bytes.Length);
                 sw.Close();
-                return new FileContentResult(bytes, "image/png");
+                return new FileContentResult(bytes, contentType);
             }
         }
 
@@ -85,7 +85,7 @@ namespace MediaHub.Controllers
             var result = await _albumRepository.AddAsync(album);
             if (result > 0)
             {
-                return Ok(albumViewModel);
+                return Ok(album);
             }
             else
             {
@@ -104,6 +104,7 @@ namespace MediaHub.Controllers
             var album = await _albumRepository.QueryByIdAsync(albumId);
             if (album != null)
             {
+                await FileHelper.DeleteFileAsync(Path.Combine(FileHelper.BaseFilePath, album.UserId.ToString(), albumId.ToString()));//删除相应文件
                 var result = await _albumRepository.DeleteAsync(album);
                 if (result > 0)
                 {

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediaHub.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200222141950_Init")]
-    partial class Init
+    [Migration("20200506145108_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,8 @@ namespace MediaHub.Data.Migrations
                     b.Property<string>("FilePath");
 
                     b.Property<long>("FileSize");
+
+                    b.Property<int>("FileType");
 
                     b.Property<string>("Identifier");
 

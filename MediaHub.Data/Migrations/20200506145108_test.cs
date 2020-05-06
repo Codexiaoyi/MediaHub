@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MediaHub.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,6 +74,7 @@ namespace MediaHub.Data.Migrations
                     FileName = table.Column<string>(nullable: true),
                     Identifier = table.Column<string>(nullable: true),
                     ExtensionName = table.Column<string>(nullable: true),
+                    FileType = table.Column<int>(nullable: false),
                     FilePath = table.Column<string>(nullable: true),
                     FileSize = table.Column<long>(nullable: false),
                     AlbumId = table.Column<byte[]>(nullable: false)

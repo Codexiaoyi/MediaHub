@@ -40,7 +40,7 @@ namespace MediaHub
 
             #region Autofac
             //让Autofac接管ConfigureServices
-            //实例化 Autofac 容器
+            //实例化 Autofac 容器 
             var builder = new ContainerBuilder();
 
             //注册要反射的组件
